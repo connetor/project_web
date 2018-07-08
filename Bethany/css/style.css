@@ -4,11 +4,14 @@
     Author: BootstrapMade.com
     Author URL: https://bootstrapmade.com
 */
-
+*{
+    font-family: 'Prompt' !important;
+}
 body {
 	line-height: 1.5;
-	font-family: 'Open Sans', sans-serif;
+	
     overflow-x: hidden; 
+   
 }
 ol, ul {
 	list-style: none;
