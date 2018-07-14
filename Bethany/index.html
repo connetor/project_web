@@ -409,7 +409,7 @@
         <label for="psw-repeat" style="margin-top:1%;">
           <b>วันเกิด</b>
         </label>
-        <input data-provide="datepicker" type="text" class="form-control" name="form_date" id="form_date" placeholder="วันเกิด"
+        <input data-provide="datepicker" required type="text" class="form-control" name="form_date" id="form_date" placeholder="วันเกิด"
             />  
         <label >
           <b>รายละเอียดงานที่รับ</b>
@@ -423,12 +423,17 @@
           <option value="6">อิเล็คทรอนิกส์</option>
         </select>
         <label >
-            <b>อธิบายงานที่ทำ</b>
+            <b>อธิบายงานที่รับทำ</b>
           </label>
         <div class="col-md-12">
-          <textarea class="form-control" rows="5"></textarea>
+          <textarea class="form-control" required rows="5"></textarea>
         </div>
-        
+        <br>
+        <label>
+          <b>อธิบายเกี่ยวกับคุณสั้นๆ</b>
+        </label>
+        <input type="text" class="form-control" required name="form_date" id="form_date" placeholder="อธิบายสั้นๆ"
+            /> 
         <div class="clearfix">
           <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button>
           <button type="submit" class="cancelbtn" style="background-color:green;">Sign Up</button>
