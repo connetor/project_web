@@ -136,7 +136,7 @@
                     </li>
                 </ul>
                 <div class="center p-20">
-
+                    <a href="https://wrappixel.com/templates/ampleadmin/" target="_blank" class="btn btn-danger btn-block waves-effect waves-light">Upgrade to Pro</a>
                 </div>
             </div>
         </div>
@@ -150,80 +150,70 @@
             <div class="container-fluid">
                 <div class="row bg-title">
                     <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-                        <h4 class="page-title">Promotion/News</h4>
+                        <h4 class="page-title">Promotion/News Page</h4>
                     </div>
                     <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+
                         <ol class="breadcrumb">
                             <li>
                                 <a href="#">Dashboard</a>
                             </li>
-                            <li class="active">Basic Table</li>
+                            <li class="active">Profile Page</li>
                         </ol>
                     </div>
-                    <!-- /.col-lg-12 -->
                 </div>
-                <!-- /row -->
+                <!-- /.row -->
+                <!-- .row -->
                 <div class="row">
-                    <div class="col-sm-12">
+
+                    <div class="col-md-12 col-xs-12">
                         <div class="white-box">
-                            <h3 class="box-title">จัดการโปรโมชั่น/ข่าวสาว เพิ่ม/ลบ/แก้ไข</h3>
-                            <p class="text-muted">
+                            <form class="form-horizontal form-material">
+                                <div class="form-group">
+                                    <label class="col-md-12">ประเภท</label>
+                                    <div class="col-md-12">
 
-                                <select class="form-control">
-                                    <option value="" selected>กรุณาเลือกหมวดหมู่</option>
-                                    <option value="1">โปรโมชั่น</option>
-                                    <option value="2">ข่าวสาร</option>
-                                </select>
-                                <input class="form-control" placeholder="ค้นหา" />
-                            </p>
-                            <div class="table-responsive">
-                                <table class="table">
-                                    <thead>
-                                        <tr>
-                                            <th>อันดับ</th>
-                                            <th>ชื่อ</th>
-                                            <th>วันที่สร้าง</th>
-                                            <th>หมวดหมู่</th>
+                                        <input type="radio" name="type" value="1" checked> โปรโมชั่น
+                                        <br>
+                                        <input type="radio" name="type" value="2"> ข่าวสาร
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-12">ชื่อโปรโมชั่น/ข่าวสาร</label>
+                                    <div class="col-md-12">
+                                        <input type="text" class="form-control form-control-line" name="name" value="มีช่างอะไรบ้าง?"> </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="example-email" class="col-md-12">ระยะเวลาเริ่มต้น</label>
+                                    <div class="col-md-12">
+                                        <input type="date" class="form-control form-control-line" name="time_start">
+                                    </div>
+                                </div>
 
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>
-                                                <a href="promotion_list.html" class="waves-effect">ลด 15% ครั้งแรก</a>
-                                            </td>
-                                            <td>10-7-2018</td>
-                                            <td>โปรโมชั่น</td>
-                                            <td>
-                                                <a class="btn btn-danger">ลบ</a>
-                                                <a class="btn btn-warning">แก้ไข</a>
-                                            </td>
+                                <div class="form-group">
+                                    <label class="col-md-12">ระยะเวลาสิ้นสุด</label>
+                                    <div class="col-md-12">
+                                        <input type="date" class="form-control form-control-line" name="time_end"> </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-12">รายละเอียด</label>
+                                    <div class="col-md-12">
+                                        <textarea class="form-control" rows="5"></textarea>
+                                    </div>
+                                </div>
 
-                                        </tr>
-                                        <tr>
-                                            <td>2</td>
-                                            <td>
-                                                <a href="promotion_list.html" class="waves-effect">มีช่างอะไรบ้าง ?</a>
-                                            </td>
-                                            <td>10-7-2018</td>
-                                            <td>ข่าวสาร</td>
-                                            <td>
-                                                <a class="btn btn-danger">ลบ</a>
-                                                <a class="btn btn-warning">แก้ไข</a>
-                                            </td>
-                                        </tr>
 
-                                    </tbody>
-                                </table>
-                            </div>
+
+                                <button class="btn btn-success">บันทึก</button>
+                                <button class="btn btn-danger">ย้อนกลับ</button>
+                            </form>
                         </div>
                     </div>
                 </div>
                 <!-- /.row -->
             </div>
             <!-- /.container-fluid -->
-            <footer class="footer text-center"> 2017 &copy; Ample Admin brought to you by wrappixel.com</footer>
+            <footer class="footer text-center"> 2017 &copy; Ample Admin brought to you by wrappixel.com </footer>
         </div>
         <!-- /#page-wrapper -->
     </div>

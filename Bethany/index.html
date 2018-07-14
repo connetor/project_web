@@ -360,10 +360,15 @@
         <h1>สมัครสมาชิก</h1>
         <p>กรุณากรอกข้อมูลให้ครบ เพื่อให้ขั้นตอนในการสมัครสมาชิกสำเร็จด้วย</p>
         <hr>
-        <label for="email">
+        <div class="col-md-12">
+            <input type="radio" name="type" value="1" checked> สมาชิก   
+            <input type="radio" name="type" value="2"> ช่าง
+        </div>
+        <br><br>
+        <label>
           <b>ไอดีเข้าใช้งาน</b>
         </label>
-
+        
         <input type="text" required name="form_id" id="form_id" data-toggle="tooltip" title="ใช้ได้เฉพาะตัวอักษร a-z, A-Z, 0-9 ความยาวระหว่าง 6 - 16 ตัวอักษร"
           class="form-control" placeholder="ไอดีผู้ใช้งาน" data-rule="minlen64"  />
         <label for="psw">
@@ -385,12 +390,12 @@
         <label for="psw-repeat">
           <b>ชื่อ</b>
         </label>
-        <input type="text" required class="form-control" data-toggle="tooltip" title="ชื่อจริง" name="form_fname" id="form_fname" placeholder="เบอร์โทรศัพท์"
+        <input type="text" required class="form-control" data-toggle="tooltip" title="ชื่อจริง" name="form_fname" id="form_fname" placeholder="ชื่อจริง"
             />
         <label for="psw-repeat">
           <b>นามสกุล</b>
         </label>
-        <input type="text" required class="form-control" data-toggle="tooltip" title="นามสกุล" name="form_lname" id="form_lname" placeholder="เบอร์โทรศัพท์"
+        <input type="text" required class="form-control" data-toggle="tooltip" title="นามสกุล" name="form_lname" id="form_lname" placeholder="นามสกุล"
             />
         <label for="psw-repeat">
           <b>เพศ</b>
@@ -405,7 +410,25 @@
           <b>วันเกิด</b>
         </label>
         <input data-provide="datepicker" type="text" class="form-control" name="form_date" id="form_date" placeholder="วันเกิด"
-            />
+            />  
+        <label >
+          <b>รายละเอียดงานที่รับ</b>
+        </label>
+        <select class ="form-control">
+          <option value="1">ไฟฟ้า</option>
+          <option value="2">ประปา</option>
+          <option value="3">ก่อสร้าง</option>
+          <option value="4">ยานพาหนะ</option>
+          <option value="5">สื่อสาร</option>
+          <option value="6">อิเล็คทรอนิกส์</option>
+        </select>
+        <label >
+            <b>อธิบายงานที่ทำ</b>
+          </label>
+        <div class="col-md-12">
+          <textarea class="form-control" rows="5"></textarea>
+        </div>
+        
         <div class="clearfix">
           <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button>
           <button type="submit" class="cancelbtn" style="background-color:green;">Sign Up</button>
