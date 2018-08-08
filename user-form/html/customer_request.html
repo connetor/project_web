@@ -44,48 +44,22 @@
         <!-- Topbar header - style you can find in pages.scss -->
         <!-- ============================================================== -->
         <nav class="navbar navbar-default navbar-static-top m-b-0">
-            <div class="navbar-header">
-                <div class="top-left-part">
-                    <!-- Logo -->
-                    <a class="logo" href="index.html">
-                        <!-- Logo icon image, you can use font-icon also -->
-                        <b>
-                            <!--This is dark logo icon-->
-                            <img src="../plugins/images/admin-logo.png" alt="home" class="dark-logo" />
-                            <!--This is light logo icon-->
-                            <img src="../plugins/images/admin-logo-dark.png" alt="home" class="light-logo" />
-                        </b>
-                        <!-- Logo text image you can use text also -->
-                        <span class="hidden-xs">
-                            <!--This is dark logo text-->
-                            <img src="../plugins/images/admin-text.png" alt="home" class="dark-logo" />
-                            <!--This is light logo text-->
-                            <img src="../plugins/images/admin-text-dark.png" alt="home" class="light-logo" />
-                        </span>
-                    </a>
-                </div>
-                <!-- /Logo -->
-                <ul class="nav navbar-top-links navbar-right pull-right">
-                    <li>
-                        <form role="search" class="app-search hidden-sm hidden-xs m-r-10">
-                            <input type="text" placeholder="Search..." class="form-control">
-                            <a href="">
-                                <i class="fa fa-search"></i>
+                <div class="navbar-header">  
+                    <!-- /Logo -->
+                    <ul class="nav navbar-top-links navbar-right pull-right">
+                        
+                        <li>
+                            <a class="profile-pic" href="#">
+                                <img src="../plugins/images/users/varun.jpg" alt="user-img" width="36" class="img-circle">
+                                <b class="hidden-xs">User</b>
                             </a>
-                        </form>
-                    </li>
-                    <li>
-                        <a class="profile-pic" href="#">
-                            <img src="../plugins/images/users/varun.jpg" alt="user-img" width="36" class="img-circle">
-                            <b class="hidden-xs">Steave</b>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-            <!-- /.navbar-header -->
-            <!-- /.navbar-top-links -->
-            <!-- /.navbar-static-side -->
-        </nav>
+                        </li>
+                    </ul>
+                </div>
+                <!-- /.navbar-header -->
+                <!-- /.navbar-top-links -->
+                <!-- /.navbar-static-side -->
+            </nav>
         <!-- End Top Navigation -->
         <!-- ============================================================== -->
         <!-- Left Sidebar - style you can find in sidebar.scss  -->
@@ -111,15 +85,12 @@
                         </li>
                         <li>
                             <a href="history.html" class="waves-effect">
-                                <i class="fa fa-bar-chart-o fa-fw" aria-hidden="true"></i>ประวัติการทำงาน</a>
+                                <i class="fa fa-bar-chart-o fa-fw" aria-hidden="true"></i>ประวัติการจ้างงาน</a>
                         </li>
-                        <li>
-                            <a href="price.html" class="waves-effect">
-                                <i class="fa fa-money fa-fw" aria-hidden="true"></i>เบิกค่าบริการ</a>
-                        </li>
+                       
                         <li>
                             <a href="customer_request.html" class="waves-effect">
-                                <i class="fa fa-bars fa-fw" aria-hidden="true"></i>จัดการคำขอลูกค้า</a>
+                                <i class="fa fa-bars fa-fw" aria-hidden="true"></i>จัดการงานที่จ้าง</a>
                         </li>
                         <li>
                             <a href="map-google.html" class="waves-effect">
@@ -138,7 +109,7 @@
             <div class="container-fluid">
                 <div class="row bg-title">
                     <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-                        <h4 class="page-title">จัดการสมาชิก</h4>
+                        <h4 class="page-title">จัดการงานที่จ้าง</h4>
                     </div>
                     <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
                         <ol class="breadcrumb">
@@ -154,51 +125,49 @@
                 <div class="row">
                     <div class="col-sm-12">
                         <div class="white-box">
-                            <h3 class="box-title">จัดการคำข้อจากลูกค้า</h3>
+                            <h3 class="box-title">จัดการงานที่จ้าง</h3>
 
                             <p class="text-muted">
-                                <input class="form-control" placeholder="ค้นหาลูกค้า" />
+                                <input class="form-control" placeholder="ค้นหาช่าง/งาน" />
                             </p>
                             <div class="table-responsive">
                                 <table class="table">
                                     <thead>
                                         <tr>
                                             <th>อันดับ</th>
-                                            <th>ชื่อ</th>
-                                            <th>นามสกุล</th>
-                                            <th>เบอร์โทร</th>
+                                            <th>ประเภทงาน</th>
+                                            <th>ชื่องาน</th>
+                                            <th>ชื่อช่าง</th>
                                             <th>รายละเอียดงาน</th>
-                                            <th>การยืนยัน</th>
+                                            <th>สถานะ</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr>
                                             <td>1</td>
                                             <td>
-                                                <a href="customer_quotation.html" class="waves-effect">Deshmukh</a>
+                                                <a href="customer_quotation.html" class="waves-effect">งานซ่อมไฟฟ้า</a>
                                             </td>
-                                            <td>Prohaska</td>
-                                            <td>123456789</td>
-                                            <td>งานซ่อมไฟฟ้า</td>
+                                            <td>ซ่อมหลอดไฟ</td>
+                                            <td>ping</td>
+                                            <td>ซ่อมหลอดไฟ2จุด</td>
                                             <td>
-                                                <a class="btn btn-success">ยืนยัน</a>
+                                                รอช่างยืนยัน
                                             </td>
-                                            <td>
-                                                <a class="btn btn-danger" style="margin-left: -50%;">ยกเลิก</a>
-                                            </td>
+                                            
                                         </tr>
                                         <tr>
                                             <td>2</td>
-                                            <td><a href="customer_quotation.html" class="waves-effect">Deshmukh</a></td>
-                                            <td>Gaylord</td>
-                                            <td>123456789</td>
-                                            <td>งานซ่อมประปา</td>
                                             <td>
-                                                <a class="btn btn-success">ยืนยัน</a>
+                                                <a href="customer_quotation.html" class="waves-effect">งานซ่อมประปา</a>
                                             </td>
+                                            <td>ซ่อมท่อ</td>
+                                            <td>film</td>
+                                            <td>ท่อรั่วต้องการช่างด่วน</td>
                                             <td>
-                                                <a class="btn btn-danger" style="margin-left: -50%;">ยกเลิก</a>
+                                                ช่างยืนยันแล้ว
                                             </td>
+                                            
                                         </tr>
 
                                     </tbody>
@@ -210,7 +179,7 @@
                 <!-- /.row -->
             </div>
             <!-- /.container-fluid -->
-            <footer class="footer text-center"> 2017 &copy; Ample Admin brought to you by wrappixel.com</footer>
+            
         </div>
         <!-- /#page-wrapper -->
     </div>

@@ -8,7 +8,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <link rel="icon" type="image/png" sizes="16x16" href="../plugins/images/favicon.png">
-    <title>User Profile</title>
+    <title>Worker Profile</title>
     <!-- Bootstrap Core CSS -->
     <link href="bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Menu CSS -->
@@ -44,48 +44,22 @@
         <!-- Topbar header - style you can find in pages.scss -->
         <!-- ============================================================== -->
         <nav class="navbar navbar-default navbar-static-top m-b-0">
-            <div class="navbar-header">
-                <div class="top-left-part">
-                    <!-- Logo -->
-                    <a class="logo" href="index.html">
-                        <!-- Logo icon image, you can use font-icon also -->
-                        <b>
-                            <!--This is dark logo icon-->
-                            <img src="../plugins/images/admin-logo.png" alt="home" class="dark-logo" />
-                            <!--This is light logo icon-->
-                            <img src="../plugins/images/admin-logo-dark.png" alt="home" class="light-logo" />
-                        </b>
-                        <!-- Logo text image you can use text also -->
-                        <span class="hidden-xs">
-                            <!--This is dark logo text-->
-                            <img src="../plugins/images/admin-text.png" alt="home" class="dark-logo" />
-                            <!--This is light logo text-->
-                            <img src="../plugins/images/admin-text-dark.png" alt="home" class="light-logo" />
-                        </span>
-                    </a>
-                </div>
-                <!-- /Logo -->
-                <ul class="nav navbar-top-links navbar-right pull-right">
-                    <li>
-                        <form role="search" class="app-search hidden-sm hidden-xs m-r-10">
-                            <input type="text" placeholder="Search..." class="form-control">
-                            <a href="">
-                                <i class="fa fa-search"></i>
+                <div class="navbar-header">  
+                    <!-- /Logo -->
+                    <ul class="nav navbar-top-links navbar-right pull-right">
+                        
+                        <li>
+                            <a class="profile-pic" href="#">
+                                <img src="../plugins/images/users/varun.jpg" alt="user-img" width="36" class="img-circle">
+                                <b class="hidden-xs">User</b>
                             </a>
-                        </form>
-                    </li>
-                    <li>
-                        <a class="profile-pic" href="#">
-                            <img src="../plugins/images/users/varun.jpg" alt="user-img" width="36" class="img-circle">
-                            <b class="hidden-xs">Steave</b>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-            <!-- /.navbar-header -->
-            <!-- /.navbar-top-links -->
-            <!-- /.navbar-static-side -->
-        </nav>
+                        </li>
+                    </ul>
+                </div>
+                <!-- /.navbar-header -->
+                <!-- /.navbar-top-links -->
+                <!-- /.navbar-static-side -->
+            </nav>
         <!-- End Top Navigation -->
         <!-- ============================================================== -->
         <!-- Left Sidebar - style you can find in sidebar.scss  -->
@@ -144,9 +118,9 @@
 
                         <ol class="breadcrumb">
                             <li>
-                                <a href="#">Dashboard</a>
+                                <a href="index.html">Dashboard</a>
                             </li>
-                            <li class="active">Profile Page</li>
+                            <li class="active">Price</li>
                         </ol>
                     </div>
                 </div>
@@ -182,7 +156,7 @@
                 <!-- /.row -->
             </div>
             <!-- /.container-fluid -->
-            <footer class="footer text-center"> 2017 &copy; Ample Admin brought to you by wrappixel.com </footer>
+            
         </div>
         <!-- /#page-wrapper -->
     </div>
