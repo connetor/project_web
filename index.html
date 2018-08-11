@@ -353,16 +353,17 @@
       </div>
     </div>
   </footer>
+
   <div id="id01" class="modal" >
     <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">สมัครเป็นช่างประจำ FIXED</span>
-    <form class="modal-content" action="/action_page.php">
+    <form class="modal-content" id="new_data" method="post">
       <div class="container" style="margin-left: 20% ">
         <h1>สมัครสมาชิก</h1>
         <p>กรุณากรอกข้อมูลให้ครบ เพื่อให้ขั้นตอนในการสมัครสมาชิกสำเร็จด้วย</p>
         <hr style="width: 60%; margin-left: -5% ">
         <div class="col-md-12">
-            <input type="radio" name="type" value="1" checked> สมาชิก   
-            <input type="radio" name="type" value="2"> ช่าง
+            <input type="radio" name="type" value="1" checked onclick="member()"> สมาชิก   
+            <input type="radio" name="type" value="2" onclick="worker()"> ช่าง
         </div>
         <br><br>
         <div class="col-md-6">
@@ -370,33 +371,33 @@
           <b>ไอดีเข้าใช้งาน</b>
         </label>
         
-        <input type="text" required name="form_id" id="form_id" data-toggle="tooltip" title="ใช้ได้เฉพาะตัวอักษร a-z, A-Z, 0-9 ความยาวระหว่าง 6 - 16 ตัวอักษร"
+        <input type="text" name="form_id" id="form_id" data-toggle="tooltip" title="ใช้ได้เฉพาะตัวอักษร a-z, A-Z, 0-9 ความยาวระหว่าง 6 - 16 ตัวอักษร"
           class="form-control" placeholder="ไอดีผู้ใช้งาน" data-rule="minlen64"  />
         <label for="psw">
           <b>รหัสผ่าน</b>
         </label>
-        <input type="password" required class="form-control" data-toggle="tooltip" title="ใช้ได้เฉพาะตัวอักษร a-z, A-Z, 0-9 ความยาวระหว่าง 6 - 16 ตัวอักษร"
+        <input type="password" class="form-control" data-toggle="tooltip" title="ใช้ได้เฉพาะตัวอักษร a-z, A-Z, 0-9 ความยาวระหว่าง 6 - 16 ตัวอักษร"
           name="form_pw" id="form_pw" placeholder="รหัสผ่าน" data-rule="minlen64" 
         />
         <label for="psw-repeat">
           <b>อีเมลล์</b>
         </label>
-        <input type="text" required class="form-control" data-toggle="tooltip" title="example@gmail.com" name="form_email" id="form_email"
+        <input type="text" class="form-control" data-toggle="tooltip" title="example@gmail.com" name="form_email" id="form_email"
           placeholder="อีเมลล์"   />
         <label for="psw-repeat">
           <b>เบอร์โทรศัพท์</b>
         </label>
-        <input type="text" required class="form-control" data-toggle="tooltip" title="หมายเลขโทรศัพท์ 10 หลัก" name="form_tel" id="form_tel"
+        <input type="text" class="form-control" data-toggle="tooltip" title="หมายเลขโทรศัพท์ 10 หลัก" name="form_tel" id="form_tel"
           placeholder="เบอร์โทรศัพท์"  data-msg="Please enter at least 6 chars" />
         <label for="psw-repeat">
           <b>ชื่อ</b>
         </label>
-        <input type="text" required class="form-control" data-toggle="tooltip" title="ชื่อจริง" name="form_fname" id="form_fname" placeholder="ชื่อจริง"
+        <input type="text" class="form-control" data-toggle="tooltip" title="ชื่อจริง" name="form_fname" id="form_fname" placeholder="ชื่อจริง"
             />
         <label for="psw-repeat">
           <b>นามสกุล</b>
         </label>
-        <input type="text" required class="form-control" data-toggle="tooltip" title="นามสกุล" name="form_lname" id="form_lname" placeholder="นามสกุล"
+        <input type="text" class="form-control" data-toggle="tooltip" title="นามสกุล" name="form_lname" id="form_lname" placeholder="นามสกุล"
             />
         <label for="psw-repeat">
           <b>เพศ</b>
@@ -407,44 +408,31 @@
         <input type="radio" name="gender" value="f" id="gender-female" />
         <label for="gender-female">หญิง</label>
         <br>
+
         <label for="psw-repeat" style="margin-top:1%;">
           <b>วันเกิด</b>
         </label>
-        <input data-provide="datepicker" required type="text" class="form-control" name="form_date" id="form_date" placeholder="วันเกิด"
-            />  
+        <input type="date" name="bday" id="datePicker">
+        <p class="getDate"></p> 
+
         <label >
-          <b>รายละเอียดงานที่รับ</b>
-        </label>
-        <select class ="form-control">
-          <option value="1">ไฟฟ้า</option>
-          <option value="2">ประปา</option>
-          <option value="3">ก่อสร้าง</option>
-          <option value="4">ยานพาหนะ</option>
-          <option value="5">สื่อสาร</option>
-          <option value="6">อิเล็คทรอนิกส์</option>
-        </select>
-        <label >
-            <b>อธิบายงานที่รับทำ</b>
+            <b>ที่อยู่</b>
           </label>
         <div class="col-md-12">
-          <textarea class="form-control" required rows="5"></textarea>
+          <textarea name="addr" class="form-control" rows="5"></textarea>
         </div>
         <br>
-        <label>
-          <b>อธิบายเกี่ยวกับคุณสั้นๆ</b>
-        </label>
-        <input type="text" class="form-control" required name="form_date" id="form_date" placeholder="อธิบายสั้นๆ"
-            /> 
-          </div>
+        <span id="workonly"></span>
+      </div>
 
-        <div class="clearfix col-md-8 " style="margin-left: -10% ">
+        <div class="clearfix col-md-8 " style="margin-left: -10%;margin-top: 30px;">
           <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button>
-          <button type="submit" class="cancelbtn" style="background-color:green;">Sign Up</button>
+          <button type="submit" id="submit_addnew" class="cancelbtn" style="background-color:green;" onclick="add_newmember()">Sign Up</button>
         </div>
       </div>
     </form>
-  
   </div>
+
   <!---->
   <!--contact ends-->
   <script src="js/jquery.min.js"></script>
@@ -474,6 +462,7 @@
       }
     }
   </script>
+  <script src="data_js.js" ></script>
 </body>
 
 
