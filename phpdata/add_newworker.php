@@ -12,7 +12,12 @@
 	$ex = $_POST['extention'];
 	$teclo = $_POST['technicLocation'];
 
-	$obj = new Dataphp();
-	$obj->insert_workkerinformation($user,$pass,$fname,$lname,$bdate,$address,$phone,$email,$type,$ex,$teclo);
+	if ($user!=NULL&&$pass!=NULL&&$fname!=NULL&&$lname!=NULL&&$bdate!=NULL&&$address!=NULL&&$phone!=NULL&&$email!=NULL&&$type!=NULL&&$ex!=NULL&&$teclo) 
+	{
+		$obj = new Dataphp();
+		$obj->insert_workkerinformation($user,$pass,$fname,$lname,$bdate,$address,$phone,$email,$type,$ex,$teclo);
 
+	}
+
+	
 ?>

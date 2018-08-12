@@ -9,7 +9,12 @@
 	$phone = $_POST['form_tel'];
 	$email = $_POST['form_email'];
 
-	$obj = new Dataphp();
-	$obj->insert_memberinformation($user,$pass,$fname,$lname,$bdate,$address,$phone,$email);
+	if ($user!=NULL&&$pass!=NULL&&$fname!=NULL&&$lname!=NULL&&$bdate!=NULL&&$address!=NULL&&$phone!=NULL&&$email) 
+	{
+		$obj = new Dataphp();
+		$obj->insert_memberinformation($user,$pass,$fname,$lname,$bdate,$address,$phone,$email);
+	}
+
+	
 
 ?>

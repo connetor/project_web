@@ -126,7 +126,7 @@
                 </div>
                 <!-- /.row -->
                 <!-- .row -->
-                <div class="row">
+                <div class="row" id="show_worker">
                     <div class="col-md-4 col-xs-12">
                         <div class="white-box">
                             <div class="user-bg">
@@ -208,6 +208,46 @@
     <script src="js/waves.js"></script>
     <!-- Custom Theme JavaScript -->
     <script src="js/custom.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () { 
+            var id = 2;
+          $.ajax({
+            url:'change_workerinformation.php',
+            type:'post',
+            data:{data:true},
+            success:function(res){
+                $('#show_worker').load('change_workerinformation.php?data='+id);
+            }
+          });        
+          
+        });
+
+        function change_workerinformation(){
+            var id = 2;
+            var data_put = $('#data_change').serializeArray();
+            data_put[data_put.length] = { name: "id", value: id };
+            $.ajax({
+                url:'change_workerinformation_set.php',
+                type:'post',
+                data:data_put,
+                success:function(res){
+                    location.reload();          
+                }
+            });
+        }
+
+        function delete_worker(){
+            var id = 2;
+            $.ajax({
+                url:'delete_worker.php',
+                type:'post',
+                data:{data_id:id},
+                success:function(res){
+                    location.reload();
+                }
+            });
+        }
+    </script>
 </body>
 
 </html>

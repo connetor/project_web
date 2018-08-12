@@ -39,18 +39,18 @@
 			type:'post',
 			data:data_member,
 			success:function(res){
-				alert(res)
+				location.reload();
 			}
 		})
 	}
 
 	function worker(){
-		$('#workonly').load("workonly.html");
-		$('#submit_addnew').attr('onclick','add_newworker()')
+		$('#workonly').load("workonly_2.html");
+		$('#new_data').attr('onsubmit','add_newworker()')
 	}
 
 	function member(){
 		$('#workonly').html(" ");
-		$('#submit_addnew').attr('onclick','add_newmember()')
+		$('#new_data').attr('onsubmit','add_newmember()')
 
 	}
