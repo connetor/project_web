@@ -198,22 +198,19 @@
     <script src="js/custom.min.js"></script>
     <script type="text/javascript">
         $(document).ready(function () { 
-            var id = 8;
           $.ajax({
             url:'data_memberinformation.php',
             type:'post',
             data:{data:true},
             success:function(res){
-                $('#show_member').load('change_memberinformation.php?data='+id);
+                $('#show_member').load('change_memberinformation.php');
             }
           });        
           
         });
 
         function change_datainformation(){
-            var id = 8;
             var data_set = $('#data_change').serializeArray();
-            data_set[data_set.length] = { name: "id", value: id };
             $.ajax({
                 url:'change_memberinformation_set.php',
                 type:'post',

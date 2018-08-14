@@ -1,10 +1,13 @@
 <?php
+	session_start();
 	$fname = $_POST['fname'];
 	$lname = $_POST['lname'];
 	$email = $_POST['email'];
 	$phone = $_POST['phone'];
 	$addr = $_POST['addr'];
-	$id = $_POST['id'];
+	
+
+	$id = $_SESSION['id_show'];
 
 	require'../../class.php';
 	

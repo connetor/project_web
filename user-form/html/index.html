@@ -197,20 +197,18 @@
     <script src="js/custom.min.js"></script>
     <script type="text/javascript">
         $(document).ready(function () { 
-            var id = 8;
           $.ajax({
             url:'data_memberinformation.php',
             type:'post',
             data:{data:true},
             success:function(res){
-                $('#show_member').load('data_memberinformation.php?data='+id);
+                $('#show_member').load('data_memberinformation.php');
             }
           });        
           
         });
 
         function delete_member(){
-            var id = 8;
             $.ajax({
                 url:'delete_member.php',
                 type:'post',

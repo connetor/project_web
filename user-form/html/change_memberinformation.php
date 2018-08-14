@@ -1,7 +1,9 @@
 <?php
 	require'../../class.php';
 
-	$id = $_GET['data'];
+	session_start();
+
+	$id = $_SESSION['id_show'];
 
 	$obj = new Dataphp();
 	$obj->memberinformation($id);

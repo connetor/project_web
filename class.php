@@ -150,5 +150,32 @@
 			$sql = "DELETE FROM `".$table."` WHERE `".$where."` = ".$id;
 			mysqli_query($this->link,$sql);
 		}
+
+		function login($id,$pw){
+			session_start();
+
+			$sql = "SELECT `Member_ID` FROM `memberinformation` WHERE `Username` = '".$id."' AND `Password` = '".$pw."'";
+			if (mysqli_num_rows(mysqli_query($this->link,$sql)) != 0) {
+				$_id =  mysqli_fetch_assoc( mysqli_query($this->link,$sql) );
+				$_SESSION['member'] = true;
+				$_SESSION['id_show'] = $_id['Member_ID'];
+				echo "member";
+			}
+			$sql2 = "SELECT `Worker_ID` FROM `workerinformation` WHERE `Username` = '".$id."' AND `Password` = '".$pw."'";
+			if (mysqli_num_rows(mysqli_query($this->link,$sql2)) != 0) {
+				$_id =  mysqli_fetch_assoc( mysqli_query($this->link,$sql2) );
+				$_SESSION['worker'] = true;
+				$_SESSION['id_show'] = $_id['Worker_ID'];
+				echo "worker";
+			}
+
+			if (mysqli_num_rows(mysqli_query($this->link,$sql2)) == 0 && mysqli_num_rows(mysqli_query($this->link,$sql)) == 0) {
+				$_SESSION['member'] = false;
+				$_SESSION['worker'] = false;
+				session_destroy();
+				echo "error";
+			}
+
+		}
 	}
 ?>
