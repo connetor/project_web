@@ -73,3 +73,4 @@
 			}
 		});
 	}
+	$('#review').load('review.php');

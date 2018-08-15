@@ -177,5 +177,14 @@
 			}
 
 		}
+		function review($id){
+			$sql = 'SELECT `Worker_ID` FROM `workerinformation` WHERE `TypeID` = '.$id.' ORDER BY RAND() LIMIT 1';
+			return mysqli_fetch_assoc(mysqli_query($this->link,$sql));
+		}
+		function avg_star($id){
+			$sql = 'SELECT AVG(Star) FROM `starpoint` WHERE `Worker_ID` = '.$id;
+			$resutl = mysqli_fetch_assoc(mysqli_query($this->link,$sql));
+			return $resutl['AVG(Star)'];
+		}
 	}
 ?>

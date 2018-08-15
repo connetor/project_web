@@ -1,3 +1,19 @@
+<?php
+    require'class.php';
+    require'pagination/pagination.php';
+    $obj = new Dataphp();
+    $type = $_GET['type'];
+    $sql = "SELECT `Worker_ID`, `Fname`, `Lname`, `TypeID`, `Extention` FROM `workerinformation` WHERE `TypeID` = ".$type;
+
+            $host = 'localhost';
+            $user = 'root';
+            $pass = '';
+            $table = 'project';
+            $link = mysqli_connect($host,$user,$pass,$table) or die(mysqli_error());
+            mysqli_set_charset($link,'utf8');
+
+    $data_set = page_query($link, $sql, 2);
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -93,7 +109,7 @@
                         <h2>
                             <p class="sec-para black">งานที่คุณค้นหา</p>
                         </h2>
-                        <select class="form-control">
+                        <select class="form-control" id="select_type">
                             <option value="1">ไฟฟ้า</option>
                             <option value="2">ประปา</option>
                             <option value="3">ก่อสร้าง</option>
@@ -117,101 +133,44 @@
             <div class="row">
                 <div class="col-md-3 wow fadeInLeft delay-05s">
                     <div class="section-title">
-                        <h2 class="head-title">ช่าง......</h2>
+                        <h2 class="head-title">ช่าง </h2>
                         <hr class="botm-line">
                         <p class="sec-para">คุณสามารถเลือกช่างให้ตรงกับงานของคุณในราคาที่คุณต้องการ</p>
                     </div>
                 </div>
                 <div class="col-md-9">
-                    <div class="col-md-6 wow fadeInRight delay-02s">
-                        <div class="">
-                            <center>
-                                <img src="img/electric.png" height="100" width="100" alt="" class="img-responsive">
-                            </center>
-                        </div>
-                        <div class="icon-text">
-                            <h3 class="txt-tl">
-                                <a href="technician.html">งาน : ไฟฟ้า</a>
-                            </h3>
-                            <p class="txt-para">ชื่อ : ......</p>
-                            <p class="txt-para">คะแนน : ..../5</p>
-                            <p class="txt-para">รายละเอียด : เปลี่ยนหลอดไฟ เดินสายไฟ ติดตั้งอุปกรณ์ไฟฟ้า วงจรไฟฟ้าต่างๆ</p>
-                        </div>
+                    <div class="row">
+                         <?php
+                            while ($_data = mysqli_fetch_assoc($data_set)) {
+                                echo '<div class="col-md-6 wow fadeInRight delay-02s">
+                            <div class="">
+                                <center>
+                                    <img src="img/electric.png" height="100" width="100" alt="" class="img-responsive">
+                                </center>
+                            </div>
+                            <div class="icon-text">
+                                <h3 class="txt-tl">
+                                    <a href="technician.html">งาน : ไฟฟ้า</a>
+                                </h3>
+                                <p class="txt-para">ชื่อ : '.$_data['Fname'].' '.$_data['Lname'].'</p>
+                                <p class="txt-para">คะแนน : '.$obj->avg_star($_data['Worker_ID']).'/5</p>
+                                <p class="txt-para">รายละเอียด : '.$_data['Extention'].'</p>
+                            </div>
+                        </div>';
+                            }
+                        ?>
                     </div>
-                    <div class="col-md-6 wow fadeInRight delay-02s">
-                        <div class="">
-                            <center>
-                                <img src="img/electric.png" height="100" width="100" alt="" class="img-responsive">
-                            </center>
-                        </div>
-                        <div class="icon-text">
-                            <h3 class="txt-tl">
-                                <a href="technician.html">งาน : ไฟฟ้า</a>
-                            </h3>
-                            <p class="txt-para">ชื่อ : ......</p>
-                            <p class="txt-para">คะแนน : ..../5</p>
-                            <p class="txt-para">รายละเอียด : เปลี่ยนหลอดไฟ เดินสายไฟ ติดตั้งอุปกรณ์ไฟฟ้า วงจรไฟฟ้าต่างๆ</p>
-                        </div>
-                    </div>
-                    <div class="col-md-6 wow fadeInRight delay-04s">
-                        <div class="">
-                            <center>
-                                <img src="img/electric.png" height="100" width="100" alt="" class="img-responsive">
-                            </center>
-                        </div>
-                        <div class="icon-text">
-                            <h3 class="txt-tl">
-                                <a href="technician.html">งาน : ไฟฟ้า</a>
-                            </h3>
-                            <p class="txt-para">ชื่อ : ......</p>
-                            <p class="txt-para">คะแนน : ..../5</p>
-                            <p class="txt-para">รายละเอียด : เปลี่ยนหลอดไฟ เดินสายไฟ ติดตั้งอุปกรณ์ไฟฟ้า วงจรไฟฟ้าต่างๆ</p>
-                        </div>
-                    </div>
-                    <div class="col-md-6 wow fadeInRight delay-04s">
-                        <div class="">
-                            <center>
-                                <img src="img/electric.png" height="100" width="100" alt="" class="img-responsive">
-                            </center>
-                        </div>
-                        <div class="icon-text">
-                            <h3 class="txt-tl">
-                                <a href="technician.html">งาน : ไฟฟ้า</a>
-                            </h3>
-                            <p class="txt-para">ชื่อ : ......</p>
-                            <p class="txt-para">คะแนน : ..../5</p>
-                            <p class="txt-para">รายละเอียด : เปลี่ยนหลอดไฟ เดินสายไฟ ติดตั้งอุปกรณ์ไฟฟ้า วงจรไฟฟ้าต่างๆ</p>
-                        </div>
-                    </div>
-                    <div class="col-md-6 wow fadeInRight delay-06s">
-                        <div class="">
-                            <center>
-                                <img src="img/electric.png" height="100" width="100" alt="" class="img-responsive">
-                            </center>
-                        </div>
-                        <div class="icon-text">
-                            <h3 class="txt-tl">
-                                <a href="technician.html">งาน : ไฟฟ้า</a>
-                            </h3>
-                            <p class="txt-para">ชื่อ : ......</p>
-                            <p class="txt-para">คะแนน : ..../5</p>
-                            <p class="txt-para">รายละเอียด : เปลี่ยนหลอดไฟ เดินสายไฟ ติดตั้งอุปกรณ์ไฟฟ้า วงจรไฟฟ้าต่างๆ</p>
-                        </div>
-                    </div>
-                    <div class="col-md-6 wow fadeInRight delay-06s">
-                        <div class="">
-                            <center>
-                                <img src="img/electric.png" height="100" width="100" alt="" class="img-responsive">
-                            </center>
-                        </div>
-                        <div class="icon-text">
-                            <h3 class="txt-tl">
-                                <a href="technician.html">งาน : ไฟฟ้า</a>
-                            </h3>
-                            <p class="txt-para">ชื่อ : ......</p>
-                            <p class="txt-para">คะแนน : ..../5</p>
-                            <p class="txt-para">รายละเอียด : เปลี่ยนหลอดไฟ เดินสายไฟ ติดตั้งอุปกรณ์ไฟฟ้า วงจรไฟฟ้าต่างๆ</p>
-                        </div>
+                    <div class="row">
+                         <center>
+                         <?php
+                            page_link_border("solid","1px","#ABB2B9");
+                            page_border_radius("5px");
+                            page_link_bg_color("#17202A","#ABB2B9");
+                            page_link_font("12px","true","false","false");
+                            page_link_color("#FFFFFF");
+                            page_echo_pagenums(5,"true","true");
+                         ?>
+                         </center>
                     </div>
                 </div>
             </div>
@@ -251,6 +210,19 @@
         $(document).ready(function () {
             $('[data-toggle="tooltip"]').tooltip();
         });
+
+        
+        var url = new URL(window.location.href);
+        var c = url.searchParams.get("type");
+        $('#select_type').val(c);
+
+        $('#select_type').change(function(){
+            var type = $('#select_type').val();
+            window.location.href ='search.php?type='+type+'&page=1';
+        })
+
+
+
     </script>
 </body>
 
