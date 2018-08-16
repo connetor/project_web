@@ -17,6 +17,10 @@
 			mysqli_set_charset($this->link,'utf8');
 		}
 
+		function re_login(){
+			return $this->link;
+		}
+
 		function insert_memberinformation($user,$pass,$fname,$lname,$bdate,$address,$phone,$email)
 		{
 			$sql = "INSERT INTO `memberinformation` (`Username`, `Password`, `Fname`, `Lname`, `Bdate`, `Address`, `Phone`, `Email`) VALUES ('$user','$pass','$fname','$lname','$bdate','$address','$phone','$email')";
@@ -89,7 +93,7 @@
 
 		function workerinformation($id)
 		{
-			$sql = "SELECT `Fname`, `Lname`,  `Address`, `ProfilePic`, `Phone`, `Email` FROM `workerinformation` WHERE `Worker_ID` = ".$id;
+			$sql = "SELECT `Fname`, `Lname`,  `Address`, `Extention`, `Phone`, `Email`, `IsConfirm` FROM `workerinformation` WHERE `Worker_ID` = ".$id;
 			$this->workerinformation = mysqli_query($this->link,$sql);
 		}
 
@@ -186,5 +190,22 @@
 			$resutl = mysqli_fetch_assoc(mysqli_query($this->link,$sql));
 			return $resutl['AVG(Star)'];
 		}
+		function type_select($idtype){
+			$sql = 'SELECT `TypeName` FROM `type` WHERE `Type_ID` = '.$idtype;
+			$resutl = mysqli_fetch_assoc(mysqli_query($this->link,$sql));
+			return $resutl['TypeName'];
+		}
+
+		function IsConfirm($id){
+			$sql = 'UPDATE `workerinformation` SET `IsConfirm`= 1 WHERE `Worker_ID` = '.$id;
+			mysqli_query($this->link,$sql);
+		}
+
+		function UnIsConfirm($id){
+			$sql = 'UPDATE `workerinformation` SET `IsConfirm`= 0 WHERE `Worker_ID` = '.$id;
+			mysqli_query($this->link,$sql);
+		}
+
+
 	}
 ?>

@@ -1,3 +1,12 @@
+<?php
+    require'../../class.php';
+    require'../../pagination/pagination.php';
+    $obj = new Dataphp();
+    $link = $obj->re_login();
+    $sql = "SELECT `Worker_ID`, `Fname`, `Lname`, `TypeID`, `Extention`, `IsConfirm` FROM `workerinformation`";
+    $data_set = page_query($link, $sql, 20);
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -107,7 +116,7 @@
                     </li>
 
                     <li>
-                        <a href="basic-table.html" class="waves-effect">
+                        <a href="basic-table.php" class="waves-effect">
                             <i class="fa fa-table fa-fw" aria-hidden="true"></i>จัดการสมาชิก/ช่าง</a>
                     </li>
                     <li>
@@ -189,56 +198,42 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>
-                                                <a href="profile.html" class="waves-effect">Deshmukh</a>
-                                            </td>
-                                            <td>Prohaska</td>
-                                            <td>@Genelia</td>
-                                            <td>admin</td>
-                                            <td>
-                                                <a class="btn btn-danger">ลบ</a>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>2</td>
-                                            <td>Deshmukh</td>
-                                            <td>Gaylord</td>
-                                            <td>@Ritesh</td>
-                                            <td>member</td>
-                                        </tr>
-                                        <tr>
-                                            <td>3</td>
-                                            <td>Sanghani</td>
-                                            <td>Gusikowski</td>
-                                            <td>@Govinda</td>
-                                            <td>developer</td>
-                                        </tr>
-                                        <tr>
-                                            <td>4</td>
-                                            <td>Roshan</td>
-                                            <td>Rogahn</td>
-                                            <td>@Hritik</td>
-                                            <td>supporter</td>
-                                        </tr>
-                                        <tr>
-                                            <td>5</td>
-                                            <td>Joshi</td>
-                                            <td>Hickle</td>
-                                            <td>@Maruti</td>
-                                            <td>member</td>
-                                        </tr>
-                                        <tr>
-                                            <td>6</td>
-                                            <td>Nigam</td>
-                                            <td>Eichmann</td>
-                                            <td>@Sonu</td>
-                                            <td>supporter</td>
-                                        </tr>
+    <?php
+        while ($data_table = mysqli_fetch_assoc($data_set)) {
+            echo '<tr>
+                    <td>'.$data_table['Worker_ID'].'</td>
+                    <td>
+                    <a href="profile.php?id='.$data_table['Worker_ID'].'" class="waves-effect">'.$data_table['Fname'].' '.$data_table['Lname'].'</a>
+                    </td>
+                    <td>Prohaska</td>
+                    <td>@Genelia</td>
+                    <td>admin</td>
+                    <td>
+                    <button class="btn btn-danger" onclick="del('.$data_table['Worker_ID'].')">ลบ</button>';
+                    if ($data_table['IsConfirm']!=NULL&&$data_table['IsConfirm']==1) {
+                        echo '<button class="btn btn-info" onclick="UnIsConfirm('.$data_table['Worker_ID'].')">ยืนยันแล้ว</button>';
+                    }
+                    else if ($data_table['IsConfirm']==NULL||$data_table['IsConfirm']==0){
+                        echo '<button class="btn btn-success" onclick="IsConfirm('.$data_table['Worker_ID'].')">ยังไม่ยืนยัน</button>';
+                    }
+                    echo ' </td></tr>';
+        }
+    ?>
                                     </tbody>
                                 </table>
                             </div>
+                            <div class="row">
+                         <center>
+                         <?php
+                            page_link_border("solid","1px","#ABB2B9");
+                            page_border_radius("5px");
+                            page_link_bg_color("#17202A","#ABB2B9");
+                            page_link_font("12px","true","false","false");
+                            page_link_color("#FFFFFF");
+                            page_echo_pagenums(5,"true","true");
+                         ?>
+                         </center>
+                    </div>
                         </div>
                     </div>
                 </div>
@@ -262,6 +257,40 @@
     <script src="js/waves.js"></script>
     <!-- Custom Theme JavaScript -->
     <script src="js/custom.min.js"></script>
+    <script type="text/javascript">
+        function IsConfirm(id) {
+            $.ajax({
+                url:'IsConfirm.php',
+                type:'post',
+                data:{data:id},
+                success:function(res){
+                    location.reload();
+                }
+            })
+        }
+
+        function UnIsConfirm(id) {
+            $.ajax({
+                url:'UnIsConfirm.php',
+                type:'post',
+                data:{data:id},
+                success:function(res){
+                    location.reload();
+                }
+            })
+        }
+
+        function del(id){
+            $.ajax({
+                url:'del_data.php',
+                type:'post',
+                data:{data:id},
+                success:function(res){
+                    location.reload();
+                }
+            })
+        }
+    </script>
 </body>
 
 </html>

@@ -1,18 +1,18 @@
 <?php
+    session_start();
     require'class.php';
     require'pagination/pagination.php';
     $obj = new Dataphp();
+    $link = $obj->re_login();
     $type = $_GET['type'];
-    $sql = "SELECT `Worker_ID`, `Fname`, `Lname`, `TypeID`, `Extention` FROM `workerinformation` WHERE `TypeID` = ".$type;
-
-            $host = 'localhost';
-            $user = 'root';
-            $pass = '';
-            $table = 'project';
-            $link = mysqli_connect($host,$user,$pass,$table) or die(mysqli_error());
-            mysqli_set_charset($link,'utf8');
+    $sql = "SELECT `Worker_ID`, `Fname`, `Lname`, `TypeID`, `Extention`, `TypeID` FROM `workerinformation` WHERE `TypeID` = ".$type;
 
     $data_set = page_query($link, $sql, 2);
+
+    if(!empty($_SESSION['member'])&&$_SESSION['member'] == true){
+        $sql2 = 'SELECT `Fname`, `Lname` FROM `memberinformation` WHERE `Member_ID` = '.$_SESSION['id_show'];
+        $data_member = mysqli_fetch_assoc(mysqli_query($link,$sql2));
+    }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -68,7 +68,14 @@
                                     <a href="#feature">ค้นหาช่าง</a>
                                 </li>
                                 <li>
-                                    <a href="#contact">ยินดีต้อนรับ คุณ......</a>
+                                    <a href="#contact">ยินดีต้อนรับ 
+                                        <?php 
+                                        if(!empty($_SESSION['member'])&&$_SESSION['member'] == true)
+                                        {
+                                            echo 'คุณ '.$data_member['Fname'].' '.$data_member['Lname']; 
+                                        }
+                                        ?>        
+                                    </a>
                                 </li>
                             </ul>
                         </div>
@@ -133,7 +140,7 @@
             <div class="row">
                 <div class="col-md-3 wow fadeInLeft delay-05s">
                     <div class="section-title">
-                        <h2 class="head-title">ช่าง </h2>
+                        <h2 class="head-title">ช่าง <?php echo $obj->type_select($type); ?></h2>
                         <hr class="botm-line">
                         <p class="sec-para">คุณสามารถเลือกช่างให้ตรงกับงานของคุณในราคาที่คุณต้องการ</p>
                     </div>
@@ -150,7 +157,7 @@
                             </div>
                             <div class="icon-text">
                                 <h3 class="txt-tl">
-                                    <a href="technician.html">งาน : ไฟฟ้า</a>
+                                    <a href="technician.php?id='.$_data['Worker_ID'].'">งาน : '.$obj->type_select($_data['TypeID']).'</a>
                                 </h3>
                                 <p class="txt-para">ชื่อ : '.$_data['Fname'].' '.$_data['Lname'].'</p>
                                 <p class="txt-para">คะแนน : '.$obj->avg_star($_data['Worker_ID']).'/5</p>

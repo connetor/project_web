@@ -1,3 +1,19 @@
+<?php
+    session_start();
+
+    require'class.php';
+    $obj = new Dataphp();
+    $link = $obj->re_login();
+
+    if(!empty($_SESSION['member'])&&$_SESSION['member'] == true){
+        $sql2 = 'SELECT `Fname`, `Lname` FROM `memberinformation` WHERE `Member_ID` = '.$_SESSION['id_show'];
+        $data_member = mysqli_fetch_assoc(mysqli_query($link,$sql2));
+    }
+    $obj->workerinformation($_GET['id']);
+    $data_worker = mysqli_fetch_assoc($obj->workerinformation);
+
+    
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -49,10 +65,17 @@
                   <a href="index.html">หน้าหลัก</a>
                 </li>
                 <li>
-                  <a href="search.html">ค้นหาช่าง</a>
+                  <a href="search.php?type=1&page=1">ค้นหาช่าง</a>
                 </li>
                 <li>
-                  <a href="#contact">ยินดีต้อนรับ คุณ......</a>
+                  <a href="#contact">ยินดีต้อนรับ 
+                    <?php 
+                      if(!empty($_SESSION['member'])&&$_SESSION['member'] == true)
+                      {
+                        echo 'คุณ '.$data_member['Fname'].' '.$data_member['Lname']; 
+                      }
+                    ?> 
+                  </a>
                 </li>
               </ul>
             </div>
@@ -106,7 +129,7 @@
       <div class="row">
         <div class="col-md-3 wow fadeInLeft delay-05s">
           <div class="section-title">
-            <h2 class="head-title">ชื่อ ........</h2>
+            <h2 class="head-title">ชื่อ <?php echo $data_worker['Fname']; ?></h2>
             <hr class="botm-line">
             <p class="sec-para">รูป.........</p>
           </div>
@@ -122,14 +145,24 @@
               <h3 class="txt-tl">
                 <a href="technician.html">งาน : ไฟฟ้า</a>
               </h3>
-              <p class="txt-para">ชื่อ : ......</p>
-              <p class="txt-para">คะแนน : ..../5</p>
+              <p class="txt-para">ชื่อ :  <?php echo $data_worker['Fname'].' '.$data_worker['Lname']; ?></p>
+              <p class="txt-para">คะแนน : <?php $obj->avg_star($_GET['id']); ?>/5</p>
               <p class="txt-para">เริ่มงานกับ FIXED ตั้งแต่วันที่ : .........</p>
-              <p class="txt-para">เบอรโทรติดต่อ : .........</p>
-              <p class="txt-para">รายละเอียด : เปลี่ยนหลอดไฟ เดินสายไฟ ติดตั้งอุปกรณ์ไฟฟ้า วงจรไฟฟ้าต่างๆ</p>
+              <p class="txt-para">เบอรโทรติดต่อ : <?php echo $data_worker['Phone']; ?></p>
+              <p class="txt-para">รายละเอียด : <?php echo $data_worker['Extention']; ?></p>
               <p class="txt-para">ราคา : ..... - ...... บาท</p>
-              <a class="btn btn-success" href="user-form/html/create_request.html">จ้างช่างคนนี้</a>
-                
+
+              <?php
+                if(!empty($_SESSION['member'])&&$_SESSION['member'] == true)
+                      {
+                        if ($data_worker['IsConfirm']==NULL||$data_worker['IsConfirm']==0) {
+                          echo '<a class="btn btn-success" href="search.php?type=1&page=1">ช่างยังไม่ได้รับการยืนยัน คลิกเพื่อกลับหนา้ค้นหา</a>';
+                        }
+                        else if ($data_worker['IsConfirm']==1) {
+                         echo '<a class="btn btn-success" href="user-form/html/create_request.html?id_member='.$_SESSION['id_show'].'&id_worker='.$_GET['id'].'">จ้างช่างคนนี้</a>'; 
+                        }
+                      }
+              ?>
             </div>
           </div>
 
@@ -196,7 +229,11 @@
       </div>
     </div>
   </section>
-  <section class="section-padding wow fadeInUp delay-05s" id="contact">
+
+  <section class="section-padding wow fadeInUp delay-05s" id="contact" <?php 
+                if(empty($_SESSION['member'])||$_SESSION['member'] == false)
+                      echo 'style="display: none;"';
+              ?>>
     <div class="container" style="margin-top: -3%;">
       <div class="row white">
         <div class="col-md-8 col-sm-12">
@@ -207,6 +244,7 @@
           </div>
         </div>
         <div class="col-md-12 col-sm-12">
+
           <div class="col-md-4 col-sm-6" style="padding-left:0px;">
             <h3 class="cont-title">ให้คะแนน</h3>
             <!--/<div id="sendmessage">Your message has been sent. Thank you!</div>-->
@@ -238,7 +276,6 @@
                 <button type="submit" class="btn btn-send" id="login">เพิ่มรีวิวสำหรับช่างคนนี้</button>
               </form>
             </div>
-
           </div>
 
           <div class="col-md-4">
@@ -246,6 +283,7 @@
               <span aria-hidden="true" class="fa fa-envelope-o"></span>
             </div>
           </div>
+
         </div>
       </div>
     </div>
