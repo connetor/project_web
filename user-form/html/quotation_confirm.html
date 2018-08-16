@@ -8,7 +8,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <link rel="icon" type="image/png" sizes="16x16" href="../plugins/images/favicon.png">
-    <title>User Profile</title>
+    <title>Worker Profile</title>
     <!-- Bootstrap Core CSS -->
     <link href="bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Menu CSS -->
@@ -85,12 +85,15 @@
                     </li>
                     <li>
                         <a href="history.html" class="waves-effect">
-                            <i class="fa fa-bar-chart-o fa-fw" aria-hidden="true"></i>ประวัติการจ้างงาน</a>
+                            <i class="fa fa-bar-chart-o fa-fw" aria-hidden="true"></i>ประวัติการทำงาน</a>
                     </li>
-                  
+                    <li>
+                        <a href="price.html" class="waves-effect">
+                            <i class="fa fa-money fa-fw" aria-hidden="true"></i>เบิกค่าบริการ</a>
+                    </li>
                     <li>
                         <a href="customer_request.html" class="waves-effect">
-                            <i class="fa fa-bars fa-fw" aria-hidden="true"></i>จัดการงานที่จ้าง</a>
+                            <i class="fa fa-bars fa-fw" aria-hidden="true"></i>จัดการคำขอลูกค้า</a>
                     </li>
                     <li>
                         <a href="map-google.html" class="waves-effect">
@@ -115,7 +118,7 @@
 
                         <ol class="breadcrumb">
                             <li>
-                                <a href="#">Dashboard</a>
+                                <a href="index.html">Dashboard</a>
                             </li>
                             <li class="active">Quotation</li>
                         </ol>
@@ -127,28 +130,28 @@
 
                     <div class="col-md-12 col-xs-12">
                         <div class="white-box">
-                            <form class="form-horizontal form-material">
+                            <form class="form-horizontal form-material" action="/customer_request.html" method="GET">
                                 <div class="form-group">
                                     <label class="col-md-12">ชื่องาน</label>
                                     <div class="col-md-12">
-                                        <input type="text" placeholder="Johnathan Doe" disabled class="form-control form-control-line"> </div>
+                                        <input type="text" placeholder="งานซ่อมไฟฟ้า" disabled class="form-control form-control-line"> </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="example-email" class="col-md-12">ระยะเวลาในการทำงาน</label>
                                     <div class="col-md-12">
-                                        <input type="email" placeholder="johnathan@admin.com" disabled class="form-control form-control-line" name="example-email"
+                                        <input type="email" placeholder="3 วัน 16/8/61 - 19/8/61" disabled class="form-control form-control-line" name="example-email"
                                             id="example-email"> </div>
                                 </div>
 
                                 <div class="form-group">
                                     <label class="col-md-12">สถานที่ทำงาน</label>
                                     <div class="col-md-12">
-                                        <input type="text" placeholder="123 456 7890" disabled class="form-control form-control-line"> </div>
+                                        <input type="text" placeholder="พิกัด google map" disabled class="form-control form-control-line"> </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="col-md-12">รายละเอียด</label>
+                                    <label class="col-md-12">รายละเอียดจากลูกค้า</label>
                                     <div class="col-md-12">
-                                        <textarea class="form-control form-control-line" disabled>งานซ่อม บลบลบลบลบลบ</textarea>
+                                        <textarea class="form-control form-control-line" disabled>งานซ่อม 3อย่าง ซ่อมก็อก ซ่อมไฟ ซ่อมมิตเตอร์</textarea>
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -157,21 +160,36 @@
                                         <textarea class="form-control form-control-line" disabled></textarea>
                                     </div>
                                 </div>
-                                <div class="form-group">
-                                    <label class="col-md-12">ราคา</label>
-                                    <div class="col-md-12">
-                                        <input type="text" placeholder="1,000 บาท" class="form-control form-control-line"> </div>
-                                </div>
-                                <div class="form-group">
+                                <table id="myTable" >
+                                        <tr>
+                                            <th width="70%">
+                                                หัวข้อ
+                                            </th>
+                                            <th width="70%">
+                                                ราคา
+                                            </th>
+                                            
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <input type="text" placeholder="หัวข้อ" class="form-control form-control-line">
+                                            </td>
+                                            <td>
+                                                <input type="text" placeholder="ราคา" class="form-control form-control-line">
+                                            </td>
+                                            
+                                        </tr>
+                                    </table>
+                                <div class="form-group" style="margin-top: 1%;">
                                     <label class="col-md-12">ใบเสนอราคา</label>
                                     <div class="col-md-12">
-                                        <input type="file" class="form-control form-control-line">
+                                        <input type="text" placeholder="ไฟล์ใบเสนอราคา" disabled class="form-control form-control-line"> 
                                     </div>
-                                </div>
-                                <label class="col-md-12">ช่างได้ยืนยันงานของคุณแล้ว หากคุณกดยืนยันจะเป็นการเริ่มงานโดยทันที</label>
-                                <a class="btn btn-success" href="">ยืนยัน</a>
+                                </div>            
+                                หากคุณกดยืนยันจะเป็นการตกลง และ ช่างจะเริ่มทำงานทันที<br> 
+                                <button type="submit" class="btn btn-success" href="">ยืนยัน</a>
                                 <button class="btn btn-danger">ยกเลิก</button>
-                                <a class="btn btn-default" href="customer_quotation.html">ย้อนกลับ</a>
+                                <a class="btn btn-default" href="">ย้อนกลับ</a>
                             </form>
                         </div>
                     </div>
