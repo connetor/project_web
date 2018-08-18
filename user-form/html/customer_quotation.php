@@ -1,3 +1,15 @@
+<?php
+    
+    require'../../class.php';
+    $obj = new Dataphp();
+    $sql = 'SELECT `Member_ID`, `Worker_ID`, `Location`, `JobName`, `RequestDetail`, `IsConfirmRequest` FROM `request` WHERE `Request_ID` = '.$_GET['id_request'];
+    $data = mysqli_fetch_assoc(mysqli_query($obj->re_login(),$sql));
+
+    $sql2 = 'SELECT `ISConfirm` FROM `quotation` WHERE `Request_ID` = '.$_GET['id_request'];
+    $check = mysqli_num_rows(mysqli_query($obj->re_login(),$sql2));
+    $ISConfirmQuo = mysqli_fetch_assoc(mysqli_query($obj->re_login(),$sql2));
+    
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -133,16 +145,28 @@
                                         <a href="javascript:void(0)">
                                             <img src="../plugins/images/users/genu.jpg" class="thumb-lg img-circle" alt="img">
                                         </a>
-                                        <h4 class="text-white">ชื่อช่าง</h4>
-                                        <h5 class="text-white">เรทติ้ง .../...</h5>
+                                        <h4 class="text-white"><?php echo $obj->return_nameworker($data['Worker_ID']); ?></h4>
+                                        <h5 class="text-white">เรทติ้ง <?php echo $obj->avg_star($data['Worker_ID']); ?>/5</h5>
                                     </div>
                                 </div>
                             </div>
 
                         </div>
-                        <a class="btn btn-success" href="quotation_confirm.html">ยืนยัน</a>
+                        <?php
+                            if ($data['IsConfirmRequest']==1) {
+                                echo '<a class="btn btn-success" href="quotation_confirm.php?id_request='.$_GET['id_request'].'">ใบเสนอราคา</a>';
+                            }
+                        ?>
                        
                         <a class="btn btn-default" href="customer_request.html">ย้อนกลับ</a>
+                        <?php
+                            if ($ISConfirmQuo['ISConfirm']==0&&$check!=0) {
+                                echo "รอยืนยันใบเสนอราคา";
+                            }
+                            elseif ($ISConfirmQuo['ISConfirm']==1&&$check!=0) {
+                                echo "ยืนยันใบเสนอราคาแล้ว";
+                            }
+                        ?>
                     </div>
                     <div class="col-md-8 col-xs-12">
                         <div class="white-box">
@@ -150,12 +174,21 @@
                                 <div class="form-group">
                                     <label class="col-md-12">สถานะของงาน</label>
                                     <div class="col-md-12">
-                                        <input type="text" placeholder="ช่างยืนยันเรียบร้อย" disabled class="form-control form-control-line"> </div>
+                                        <input type="text" placeholder="<?php 
+                                        if($data['IsConfirmRequest']==NULL){
+                                            echo "รอการยืนยัน";
+                                        }
+                                        else if($data['IsConfirmRequest']==1){
+                                            echo "ยืนยันแล้ว";
+                                        }
+                                        else if($data['IsConfirmRequest']==0){
+                                            echo "ยกเลิก";
+                                        }?>" disabled class="form-control form-control-line"> </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-md-12">ชื่องาน</label>
                                     <div class="col-md-12">
-                                        <input type="text" placeholder="งานซ่อมไฟฟ้า" disabled class="form-control form-control-line"> </div>
+                                        <input type="text" placeholder="<?php echo $data['JobName'] ?>" disabled class="form-control form-control-line"> </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="example-email" class="col-md-12">ระยะเวลาในการทำงาน</label>
@@ -167,12 +200,14 @@
                                 <div class="form-group">
                                     <label class="col-md-12">สถานที่ทำงาน</label>
                                     <div class="col-md-12">
-                                        <input type="text" placeholder="พิกัด google map" disabled class="form-control form-control-line"> </div>
+                                        <input type="text" placeholder="<?php echo $data['Location']; ?>" disabled class="form-control form-control-line"> </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-md-12">รายละเอียด</label>
                                     <div class="col-md-12">
-                                        <textarea class="form-control form-control-line" disabled>งานซ่อม บลบลบลบลบลบ</textarea>
+                                        <textarea class="form-control form-control-line" disabled><?php
+                                            echo $data['RequestDetail'];
+                                        ?></textarea>
                                     </div>
                                 </div>
                                 <div class="form-group">

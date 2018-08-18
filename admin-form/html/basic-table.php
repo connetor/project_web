@@ -3,8 +3,8 @@
     require'../../pagination/pagination.php';
     $obj = new Dataphp();
     $link = $obj->re_login();
-    $sql = "SELECT `Worker_ID`, `Fname`, `Lname`, `TypeID`, `Extention`, `IsConfirm` FROM `workerinformation`";
-    $data_set = page_query($link, $sql, 20);
+    $sql = "SELECT `Worker_ID`, `Fname`, `Lname`, `TypeID`, `Extention`, `IsConfirm`,`Phone` FROM `workerinformation`";
+    $data_set = page_query($link, $sql, 5);
 ?>
 
 <!DOCTYPE html>
@@ -203,11 +203,11 @@
             echo '<tr>
                     <td>'.$data_table['Worker_ID'].'</td>
                     <td>
-                    <a href="profile.php?id='.$data_table['Worker_ID'].'" class="waves-effect">'.$data_table['Fname'].' '.$data_table['Lname'].'</a>
+                    <a href="profile.php?id='.$data_table['Worker_ID'].'" class="waves-effect">'.$data_table['Fname'].'</a>
                     </td>
-                    <td>Prohaska</td>
-                    <td>@Genelia</td>
-                    <td>admin</td>
+                    <td>'.$data_table['Lname'].'</td>
+                    <td>'.$data_table['Phone'].'</td>
+                    <td>worker</td>
                     <td>
                     <button class="btn btn-danger" onclick="del('.$data_table['Worker_ID'].')">ลบ</button>';
                     if ($data_table['IsConfirm']!=NULL&&$data_table['IsConfirm']==1) {

@@ -1,3 +1,14 @@
+<?php
+
+    require'../../class.php';
+    $obj = new Dataphp();
+    $sql = 'SELECT `Member_ID`, `Worker_ID`, `Location`, `JobName`, `RequestDetail`, `IsConfirmRequest` FROM `request` WHERE `Request_ID` = '.$_GET['id_request'];
+    $data = mysqli_fetch_assoc(mysqli_query($obj->re_login(),$sql));
+
+    $sql2 = 'SELECT `ISConfirm` FROM `quotation` WHERE `Request_ID` = '.$_GET['id_request'];
+    $check = mysqli_num_rows(mysqli_query($obj->re_login(),$sql2));
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -130,11 +141,11 @@
 
                     <div class="col-md-12 col-xs-12">
                         <div class="white-box">
-                            <form class="form-horizontal form-material" action="/customer_request.html" method="GET">
+                            <form class="form-horizontal form-material" method="GET" id="quotation_data">
                                 <div class="form-group">
                                     <label class="col-md-12">ชื่องาน</label>
                                     <div class="col-md-12">
-                                        <input type="text" placeholder="งานซ่อมไฟฟ้า" disabled class="form-control form-control-line"> </div>
+                                        <input id="name_j" type="text" placeholder="<?php echo $data['JobName']; ?>" disabled class="form-control form-control-line"> </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="example-email" class="col-md-12">ระยะเวลาในการทำงาน</label>
@@ -146,12 +157,14 @@
                                 <div class="form-group">
                                     <label class="col-md-12">สถานที่ทำงาน</label>
                                     <div class="col-md-12">
-                                        <input type="text" placeholder="พิกัด google map" disabled class="form-control form-control-line"> </div>
+                                        <input type="text" placeholder="<?php echo $data['Location']; ?>" disabled class="form-control form-control-line"> </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-md-12">รายละเอียดจากลูกค้า</label>
                                     <div class="col-md-12">
-                                        <textarea class="form-control form-control-line" disabled>งานซ่อม 3อย่าง ซ่อมก็อก ซ่อมไฟ ซ่อมมิตเตอร์</textarea>
+                                        <textarea class="form-control form-control-line" disabled><?php
+                                            echo $data['RequestDetail'];
+                                        ?></textarea>
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -174,14 +187,14 @@
                                     </tr>
                                     <tr>
                                         <td>
-                                            <input type="text" placeholder="หัวข้อ" class="form-control form-control-line">
+                                            <input name="head_set-0" type="text" placeholder="หัวข้อ" class="form-control form-control-line">
                                         </td>
                                         <td>
-                                            <input type="text" placeholder="ราคา" class="form-control form-control-line">
+                                            <input name="price_set-0" type="text" placeholder="ราคา" class="form-control form-control-line">
                                         </td>
                                         <td>
                                             <a class="btn btn-success" onclick="add_detail()">เพิ่มหัวข้อ
-                                                </>
+                                                </a>
                                         </td>
                                     </tr>
                                 </table>
@@ -191,9 +204,13 @@
                                         <input type="file" class="form-control form-control-line">
                                     </div>
                                 </div>
-                                <button type="submit" class="btn btn-success" href="">ยืนยัน</a>
-                                    <button class="btn btn-danger">ยกเลิก</button>
-                                    <a class="btn btn-default" href="">ย้อนกลับ</a>
+                                <a style="<?php
+                                    if ($check==1){
+                                        echo 'display: none;';
+                                    }
+                                ?>" onclick='quotation_submit(<?php echo $data['Member_ID'].','.$data['Worker_ID'].','.$_GET['id_request'];?>)' type="submit" class="btn btn-success" href="JavaScript:void(0)">ยืนยัน</a>
+                                    <button class="btn btn-danger" type="reset">ยกเลิก</button>
+                                    <a class="btn btn-default" href="customer_request.html">ย้อนกลับ</a>
                             </form>
                         </div>
                     </div>
@@ -219,8 +236,27 @@
     <!-- Custom Theme JavaScript -->
     <script src="js/custom.min.js"></script>
     <script>
+        var num = 1;
         function add_detail() {
-            $('#myTable').append('<tr><td><input type="text" placeholder="หัวข้อ" class="form-control form-control-line"></td><td><input type="text" placeholder="ราคา" class="form-control form-control-line"></td><td></td></tr>');
+            $('#myTable').append('<tr><td><input name="head_set-'+num+'" type="text" placeholder="หัวข้อ" class="form-control form-control-line"></td><td><input name="price_set-'+num+'" type="text" placeholder="ราคา" class="form-control form-control-line"></td><td></td></tr>');
+                num++;
+        }
+        function quotation_submit(id_w,id_m,id_r){
+            var data_set = $('#quotation_data').serializeArray();
+            var jobname = '<?php echo $data['JobName'] ?>';
+            data_set[data_set.length] = { name: "num", value: num };
+            data_set[data_set.length] = { name: "id_w", value: id_w };
+            data_set[data_set.length] = { name: "id_m", value: id_m };
+            data_set[data_set.length] = { name: "id_r", value: id_r };
+            data_set[data_set.length] = { name: "jobname", value: jobname };
+            $.ajax({
+                url:'add_quotation.php',
+                type:'post',
+                data:data_set,
+                success:function(res){
+                    location.reload();
+                }
+            });
         }
     </script>
 </body>

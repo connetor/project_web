@@ -205,7 +205,43 @@
 			$sql = 'UPDATE `workerinformation` SET `IsConfirm`= 0 WHERE `Worker_ID` = '.$id;
 			mysqli_query($this->link,$sql);
 		}
+		function insert_request($id_worker,$id_member,$name,$location,$detail){
+			$sql = 'INSERT INTO `request`(`Member_ID`, `Worker_ID`, `Location`, `JobName`, `RequestDetail`, `IsConfirmRequest`) VALUES ('.$id_member.','.$id_worker.',"'.$location.'","'.$name.'","'.$detail.'",NULL)';
+			mysqli_query($this->link,$sql);
+		}
+		function return_nameworker($id){
+			$sql = 'SELECT  `Fname`, `Lname` FROM `workerinformation` WHERE `Worker_ID` = '.$id;
+			$res = mysqli_fetch_assoc(mysqli_query($this->link,$sql));
+			return $res['Fname']." ".$res['Lname'];
+		}
+		function return_member($id){
+			$sql = 'SELECT  `Fname`, `Lname` FROM `memberinformation` WHERE `Member_ID` = '.$id;
+			$res = mysqli_fetch_assoc(mysqli_query($this->link,$sql));
+			return $res['Fname']." ".$res['Lname'];
+		}
+		function insert_quotation($worker,$member,$request,$jobname){
+			$sql = 'INSERT INTO `quotation`(`Worker_ID`, `Member_ID`, `Request_ID`, `JobName`, `ISConfirm`) VALUES ('.$worker.','.$member.','.$request.',"'.$jobname.'",0)';
+			mysqli_query($this->link,$sql);
+			$sql2 = 'SELECT `Quotation_ID` FROM `quotation` WHERE `Request_ID` = '.$request;
+			$res = mysqli_fetch_assoc(mysqli_query($this->link,$sql2));
+			return $res['Quotation_ID'];
+		}
+		function insert_quotation_detail($quotation_id,$quotation_detail,$quotation_price){
+			$sql = 'INSERT INTO `quotation_detail`( `Quotation_ID`, `QutationDetail`, `QuotationPrice`) VALUES ('.$quotation_id.',"'.$quotation_detail.'",'.$quotation_price.')';
+			mysqli_query($this->link,$sql);
+		}
+		function Is_request($id){
+			$sql = 'UPDATE `request` SET `IsConfirmRequest`= 1 WHERE `Request_ID` = '.$id;
+			mysqli_query($this->link,$sql);
+		}
 
-
+		function UnIs_request($id){
+			$sql = 'UPDATE `request` SET `IsConfirmRequest`= 0 WHERE `Request_ID` = '.$id;
+			mysqli_query($this->link,$sql);
+		}
+		function con_quo($id){
+			$sql = 'UPDATE `quotation` SET `ISConfirm`= 1 WHERE `Quotation_ID` = '.$id;
+			mysqli_query($this->link,$sql);
+		}
 	}
 ?>

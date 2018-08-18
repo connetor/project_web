@@ -1,3 +1,9 @@
+<?php
+    require'../../class.php';
+    $obj = new Dataphp();
+    $obj->workerinformation($_GET['id_worker']);
+    $data_worker = mysqli_fetch_assoc($obj->workerinformation);
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -134,8 +140,8 @@
                                         <a href="javascript:void(0)">
                                             <img src="../plugins/images/users/genu.jpg" class="thumb-lg img-circle" alt="img">
                                         </a>
-                                        <h4 class="text-white">ชื่อช่าง</h4>
-                                        <h5 class="text-white">เรทติ้ง .../...</h5>
+                                        <h4 class="text-white"><?php echo $data_worker['Fname']." ".$data_worker['Lname']; ?></h4>
+                                        <h5 class="text-white">เรทติ้ง <?php echo $obj->avg_star($_GET['id_worker']); ?>/5</h5>
                                     </div>
                                 </div>
                             </div>
@@ -145,28 +151,28 @@
                     </div>
                     <div class="col-md-8 col-xs-12">
                         <div class="white-box">
-                            <form class="form-horizontal form-material">
+                            <form class="form-horizontal form-material" id="data_set">
                                 <div class="form-group">
                                     <label class="col-md-12">ชื่องาน</label>
                                     <div class="col-md-12">
-                                        <input type="text" placeholder="กรุณากรอกชื่องาน" class="form-control form-control-line"> </div>
+                                        <input type="text" name="name" placeholder="กรุณากรอกชื่องาน" class="form-control form-control-line"> </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="example-email" class="col-md-12">ระยะเวลาในการทำงาน</label>
                                     <div class="col-md-12">
-                                        <input type="email" placeholder="กรุณาใส่ระยะเวลาในการทำงาน"  class="form-control form-control-line" name="example-email"
+                                        <input type="email" placeholder="กรุณาใส่ระยะเวลาในการทำงาน"  class="form-control form-control-line" name="date"
                                             id="example-email"> </div>
                                 </div>
 
                                 <div class="form-group">
                                     <label class="col-md-12">สถานที่ทำงาน</label>
                                     <div class="col-md-12">
-                                        <input type="text" placeholder="พิกัด google map"  class="form-control form-control-line"> </div>
+                                        <input type="text" placeholder="พิกัด google map" name="location" class="form-control form-control-line"> </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-md-12">รายละเอียด</label>
                                     <div class="col-md-12">
-                                        <textarea class="form-control form-control-line" placeholder="กรุณากรอกรายละเอียดของาน"></textarea>
+                                        <textarea name="detail" class="form-control form-control-line" placeholder="กรุณากรอกรายละเอียดของาน"></textarea>
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -178,10 +184,10 @@
                                 <div class="form-group">
                                     <label for="example-email" class="col-md-12">รหัสส่วนลด</label>
                                     <div class="col-md-12">
-                                        <input type="email" placeholder="ใส่ promotion code หากมี"  class="form-control form-control-line" name="example-email"
+                                        <input type="email" placeholder="ใส่ promotion code หากมี"  class="form-control form-control-line" name="promotion"
                                             id="example-email"> </div>
                                 </div>
-                                <a class="btn btn-success" href="">ยืนยัน</a>
+                                <a href="javascript:void(0)" onclick="insert_request(<?php echo $_GET['id_worker'].",".$_GET['id_member']; ?>)" class="btn btn-success">ยืนยัน</a>
                                 <a class="btn btn-danger" href="http://localhost/project_web/technician.html">ยกเลิก</a>
                             </form>
                         </div>
@@ -207,6 +213,20 @@
     <script src="js/waves.js"></script>
     <!-- Custom Theme JavaScript -->
     <script src="js/custom.min.js"></script>
+    <script type="text/javascript">
+        function insert_request(id_worker,id_member) {
+            var data_set = $('#data_set').serialize();
+            data_set += "&id_worker="+id_worker+"&id_member="+id_member;
+            $.ajax({
+                url:'insert_request.php',
+                type:'post',
+                data:data_set,
+                success:function(res){
+                    location.reload();
+                }
+            })
+        }
+    </script>
 </body>
 
 </html>

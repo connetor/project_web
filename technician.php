@@ -112,7 +112,7 @@
               <p class="sec-para black">ยังไม่ถูกใจ ?
                 <br>กลับไปค้นหาอีกครั้งสิ</p>
             </h2>
-            <a href="search.html" class="btn btn-primary">กลับสู่หน้าค้นหา</a>
+            <a href="search.php?type=1&page=1" class="btn btn-primary">กลับสู่หน้าค้นหา</a>
           </div>
           <hr class="botm-line-search">
         </div>
@@ -159,7 +159,7 @@
                           echo '<a class="btn btn-success" href="search.php?type=1&page=1">ช่างยังไม่ได้รับการยืนยัน คลิกเพื่อกลับหนา้ค้นหา</a>';
                         }
                         else if ($data_worker['IsConfirm']==1) {
-                         echo '<a class="btn btn-success" href="user-form/html/create_request.html?id_member='.$_SESSION['id_show'].'&id_worker='.$_GET['id'].'">จ้างช่างคนนี้</a>'; 
+                         echo '<a class="btn btn-success" href="user-form/html/create_request.php?id_member='.$_SESSION['id_show'].'&id_worker='.$_GET['id'].'">จ้างช่างคนนี้</a>'; 
                         }
                       }
               ?>
