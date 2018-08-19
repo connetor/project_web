@@ -1,3 +1,12 @@
+<?php
+    session_start();
+    require'../../class.php';
+    $obj = new Dataphp();
+    
+    $sql = 'SELECT `Workhistory_ID`,`Worker_ID`, `Member_ID`, `Quotation_ID`, `IsFinish` FROM `workerhistory` WHERE `Member_ID` = '.$_SESSION['id_show'];
+    $res = mysqli_query($obj->re_login(),$sql);
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -84,7 +93,7 @@
                                 <i class="fa fa-table fa-fw" aria-hidden="true"></i>แก้ไขข้อมูล</a>
                         </li>
                         <li>
-                            <a href="history.html" class="waves-effect">
+                            <a href="history.php" class="waves-effect">
                                 <i class="fa fa-bar-chart-o fa-fw" aria-hidden="true"></i>ประวัติการจ้างงาน</a>
                         </li>
                         
@@ -143,22 +152,26 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr>
-                                                    
-                                                    <th>1</th>
-                                                    <th><a href="history_form.html">ping</a></th>
-                                                    <th>10-7-2018</th>
-                                                    <th>ซ่อมไฟรั่ว</th>
-                                                    <th>เสร็จสิ้น</th>
-                                                    
-                                                </tr>
-                                                <tr>
-                                                    <th>2</th>
-                                                    <th><a href="history_form.html">film</a></th>
-                                                    <th>17-7-2018</th>
-                                                    <th>ซ่อท่อน้ำ</th>
-                                                    <th>กำลังดำเนิน</th>
-                                                </tr>
+        <?php
+            $num = 0;
+            while ($data = mysqli_fetch_assoc($res)) {
+                $num++;
+                echo '<tr>
+                        <th>'.$num.'</th>
+                        <th><a href="history_form.php?history='.$data['Workhistory_ID'].'">'.$obj->return_nameworker($data['Worker_ID']).'</a></th>
+                        <th>10-7-2018</th>
+                        <th>'.$obj->return_quotation($data['Quotation_ID']).'</th>
+                        <th>';
+                            if ($data['IsFinish']==0) {
+                                echo "กำลังดำเนิน";
+                            }
+                            elseif ($data['IsFinish']==1) {
+                                echo "เสร็จสิ้น";
+                            }
+                        echo '</th>
+                      </tr>';
+            }
+        ?>
                                             </tbody>
                                         </table>
                                     </div>

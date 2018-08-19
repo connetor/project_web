@@ -1,3 +1,12 @@
+<?php
+    session_start();
+    require'../../class.php';
+    $obj = new Dataphp();
+    
+    $sql = 'SELECT `Worker_ID`, `Member_ID`, `Quotation_ID`, `IsFinish` FROM `workerhistory` WHERE `Workhistory_ID` = '.$_GET['history'];
+    $res = mysqli_fetch_assoc( mysqli_query($obj->re_login(),$sql));
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -132,12 +141,12 @@
                                 <div class="form-group">
                                     <label class="col-md-12">ช่างที่จ้าง</label>
                                     <div class="col-md-12">
-                                        <input type="text" placeholder="ชื่อผู้ว่าจ้าง" disabled class="form-control form-control-line"> </div>
+                                        <input type="text" placeholder="<?php echo $obj->return_nameworker($res['Worker_ID']); ?>" disabled class="form-control form-control-line"> </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-md-12">ชื่องาน</label>
                                     <div class="col-md-12">
-                                        <input type="text" placeholder="ชื่องาน" disabled class="form-control form-control-line"> </div>
+                                        <input type="text" placeholder="<?php echo $obj->return_quotation($res['Quotation_ID']); ?>" disabled class="form-control form-control-line"> </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="example-email" class="col-md-12">ระยะเวลาในการทำงาน</label>
@@ -149,28 +158,35 @@
                                 <div class="form-group">
                                     <label class="col-md-12">สถานที่ทำงาน</label>
                                     <div class="col-md-12">
-                                        <input type="text" placeholder="พิกัด google map" disabled class="form-control form-control-line"> </div>
+                                        <input type="text" placeholder="<?php echo $obj->re_location($res['Quotation_ID']); ?>" disabled class="form-control form-control-line"> </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-md-12">รายละเอียด</label>
                                     <div class="col-md-12">
-                                        <textarea class="form-control form-control-line" disabled placeholder="รายละเอียดของาน"></textarea>
+                                        <textarea class="form-control form-control-line" disabled placeholder="<?php echo $obj->re_detail($res['Quotation_ID']); ?>"></textarea>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-md-12">ค่าจ้าง</label>
                                     <div class="col-md-12">
-                                        <input type="text" placeholder="..... บาท" disabled class="form-control form-control-line"> </div>
+                                        <input type="text" placeholder="<?php echo $obj->re_price($res['Quotation_ID']); ?> บาท" disabled class="form-control form-control-line"> </div>
                                 </div>
 
                                 <div class="form-group">
                                     <label class="col-md-12">สถานะงาน</label>
                                     <div class="col-md-12">
-                                        <input type="text" placeholder="สถานะของาน" disabled class="form-control form-control-line"> </div>
+                                        <input type="text" placeholder="<?php
+                                            if($res['IsFinish']==0){
+                                                echo 'กำลังดำเนินการ';
+                                            }
+                                            elseif($res['IsFinish']==1){
+                                                echo 'เสร็จสิ้น';
+                                            }
+                                        ?>" disabled class="form-control form-control-line"> </div>
                                 </div>
                         </div>
 
-                        <a class="btn btn-danger" href="http://localhost/project_web/user-form/html/history.html">ย้อนกลับ</a>
+                        <a class="btn btn-danger" href="history.php">ย้อนกลับ</a>
                         </form>
                     </div>
                 </div>

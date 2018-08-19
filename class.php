@@ -243,10 +243,35 @@
 			$sql = 'UPDATE `quotation` SET `ISConfirm`= 1 WHERE `Quotation_ID` = '.$id;
 			mysqli_query($this->link,$sql);
 		}
-		/*function insert_history($id_worker,$id_member,$quotation_id){
-			$sql = 'INSERT INTO `workerhistory`( `Worker_ID`, `Member_ID`, `Quotation_ID`, `IsFinish`) VALUES ('.$id_worker.','.$id_member.','.$quotation_id.',null)';
+		function insert_history($id_worker,$id_member,$quotation_id){
+			$sql = 'INSERT INTO `workerhistory`( `Worker_ID`, `Member_ID`, `Quotation_ID`, `IsFinish`, `Employee_ID`) VALUES ('.$id_worker.','.$id_member.','.$quotation_id.',0,1)';
 			echo $sql;
 			mysqli_query($this->link,$sql);
-		}*/
+		}
+		function return_quotation($id){
+			$sql = 'SELECT  `JobName` FROM `quotation` WHERE `Quotation_ID` = '.$id;
+			$res = mysqli_fetch_assoc(mysqli_query($this->link,$sql));
+			return $res['JobName'];
+		}
+		function re_location($id){
+			$sql = 'SELECT `Request_ID` FROM `quotation` WHERE `Quotation_ID` = '.$id;
+			$res = mysqli_fetch_assoc(mysqli_query($this->link,$sql));
+			$sql2 = 'SELECT `Location` FROM `request` WHERE `Request_ID` = '.$res['Request_ID'];
+			$res2 = mysqli_fetch_assoc(mysqli_query($this->link,$sql2));
+			return $res2['Location'];
+		}
+		function re_detail($id){
+			$sql = 'SELECT `Request_ID` FROM `quotation` WHERE `Quotation_ID` = '.$id;
+			$res = mysqli_fetch_assoc(mysqli_query($this->link,$sql));
+			$sql2 = 'SELECT `RequestDetail` FROM `request` WHERE `Request_ID` = '.$res['Request_ID'];
+			$res2 = mysqli_fetch_assoc(mysqli_query($this->link,$sql2));
+			return $res2['RequestDetail'];
+		}
+
+		function re_price($id){
+			$sql = 'SELECT SUM(`QuotationPrice`) FROM `quotation_detail` WHERE `Quotation_ID` = '.$id;
+			$res = mysqli_fetch_assoc(mysqli_query($this->link,$sql));
+			return $res['SUM(`QuotationPrice`)'];
+		}
 	}
 ?>
