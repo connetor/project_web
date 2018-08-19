@@ -208,7 +208,7 @@
                                     if ($check==1){
                                         echo 'display: none;';
                                     }
-                                ?>" onclick='quotation_submit(<?php echo $data['Member_ID'].','.$data['Worker_ID'].','.$_GET['id_request'];?>)' type="submit" class="btn btn-success" href="JavaScript:void(0)">ยืนยัน</a>
+                                ?>" onclick='quotation_submit(<?php echo $data['Worker_ID'].','.$data['Member_ID'].','.$_GET['id_request'];?>)' type="submit" class="btn btn-success" href="JavaScript:void(0)">ยืนยัน</a>
                                     <button class="btn btn-danger" type="reset">ยกเลิก</button>
                                     <a class="btn btn-default" href="customer_request.html">ย้อนกลับ</a>
                             </form>
@@ -254,7 +254,7 @@
                 type:'post',
                 data:data_set,
                 success:function(res){
-                    location.reload();
+                    window.location.href = 'customer_request.html';
                 }
             });
         }

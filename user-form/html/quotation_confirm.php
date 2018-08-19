@@ -5,7 +5,7 @@
     $sql = 'SELECT `Member_ID`, `Worker_ID`, `Location`, `JobName`, `RequestDetail`, `IsConfirmRequest` FROM `request` WHERE `Request_ID` = '.$_GET['id_request'];
     $data = mysqli_fetch_assoc(mysqli_query($obj->re_login(),$sql));
 
-    $sql2 = 'SELECT `ISConfirm`,`Quotation_ID` FROM `quotation` WHERE `Request_ID` = '.$_GET['id_request'];
+    $sql2 = 'SELECT `ISConfirm`,`Quotation_ID`, `Worker_ID`, `Member_ID` FROM `quotation` WHERE `Request_ID` = '.$_GET['id_request'];
     $check = mysqli_num_rows(mysqli_query($obj->re_login(),$sql2));
 
     $data_c = mysqli_fetch_assoc(mysqli_query($obj->re_login(),$sql2));
@@ -210,7 +210,7 @@
                                 หากคุณกดยืนยันจะเป็นการตกลง และ ช่างจะเริ่มทำงานทันที<br> 
                                 <a style="<?php if ($data_c['ISConfirm']==1) {
                                     echo "display: none;";
-                                } ?>" onclick="confirm_quotation(<?php echo $data_c['Quotation_ID']; ?>)" type="submit" class="btn btn-success" href="javascript:void(0)">ยืนยัน</a>
+                                } ?>" onclick="confirm_quotation(<?php echo $data_c['Worker_ID'].','.$data_c['Member_ID'].','.$data_c['Quotation_ID']; ?>)" type="submit" class="btn btn-success" href="javascript:void(0)">ยืนยัน</a>
                                 <button class="btn btn-danger">ยกเลิก</button>
                                 <a class="btn btn-default" href="">ย้อนกลับ</a>
                             </form>
@@ -238,12 +238,14 @@
     <!-- Custom Theme JavaScript -->
     <script src="js/custom.min.js"></script>
     <script type="text/javascript">
-        function confirm_quotation(quotation_ID){
+        function confirm_quotation(id_w,id_m,quotation_ID){
+            var data = { 'data':quotation_ID,'id_w':id_w,'id_m':id_m};
             $.ajax({
                 url:'con_quo.php',
                 type:'post',
-                data:{data:quotation_ID},
+                data:data,
                 success:function(res){
+                    //alert(res)
                     location.reload();
                 }
             })

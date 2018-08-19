@@ -243,5 +243,10 @@
 			$sql = 'UPDATE `quotation` SET `ISConfirm`= 1 WHERE `Quotation_ID` = '.$id;
 			mysqli_query($this->link,$sql);
 		}
+		/*function insert_history($id_worker,$id_member,$quotation_id){
+			$sql = 'INSERT INTO `workerhistory`( `Worker_ID`, `Member_ID`, `Quotation_ID`, `IsFinish`) VALUES ('.$id_worker.','.$id_member.','.$quotation_id.',null)';
+			echo $sql;
+			mysqli_query($this->link,$sql);
+		}*/
 	}
 ?>
