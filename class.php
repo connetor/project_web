@@ -209,6 +209,10 @@
 			$sql = 'INSERT INTO `request`(`Member_ID`, `Worker_ID`, `Location`, `JobName`, `RequestDetail`, `IsConfirmRequest`) VALUES ('.$id_member.','.$id_worker.',"'.$location.'","'.$name.'","'.$detail.'",NULL)';
 			mysqli_query($this->link,$sql);
 		}
+		function insert_request2($id_worker,$id_member,$name,$location,$detail,$pro){
+			$sql = 'INSERT INTO `request`(`Member_ID`, `Worker_ID`, `Location`, `JobName`, `RequestDetail`, `IsConfirmRequest`, `PromotionCode`) VALUES ('.$id_member.','.$id_worker.',"'.$location.'","'.$name.'","'.$detail.'",NULL,"'.$pro.'")';
+			mysqli_query($this->link,$sql);
+		}
 		function return_nameworker($id){
 			$sql = 'SELECT  `Fname`, `Lname` FROM `workerinformation` WHERE `Worker_ID` = '.$id;
 			$res = mysqli_fetch_assoc(mysqli_query($this->link,$sql));
@@ -272,6 +276,12 @@
 			$sql = 'SELECT SUM(`QuotationPrice`) FROM `quotation_detail` WHERE `Quotation_ID` = '.$id;
 			$res = mysqli_fetch_assoc(mysqli_query($this->link,$sql));
 			return $res['SUM(`QuotationPrice`)'];
+		}
+		function checkpro($code){
+			$sql = 'SELECT `PromotionCode` FROM `promotion` WHERE `PromotionCode` = "'.$code.'"';
+			$res = mysqli_query($this->link,$sql);
+			$rows = mysqli_num_rows($res);
+			return $rows;
 		}
 	}
 ?>

@@ -222,6 +222,7 @@
                 type:'post',
                 data:data_set,
                 success:function(res){
+                    alert(res)
                     location.reload();
                 }
             })
